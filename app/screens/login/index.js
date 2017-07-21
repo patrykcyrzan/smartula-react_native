@@ -35,7 +35,7 @@ export default class LoginScreen extends Component {
                                 <Image source={personIcon} style={styles.icon} resizeMode="contain" />
                             </View>
                             <TextInput
-                                placeholder="Username"
+                                placeholder="Nazwa"
                                 placeholderTextColor="#FFF"
                                 style={styles.input}
                             />
@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
                             </View>
                             <TextInput
                                 placeholderTextColor="#FFF"
-                                placeholder="Password"
+                                placeholder="Hasło"
                                 style={styles.input}
                                 secureTextEntry
                             />

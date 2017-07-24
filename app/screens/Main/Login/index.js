@@ -11,20 +11,24 @@ import {
     Dimensions,
     TextInput,
     Button,
-    TouchableOpacity
+    TouchableOpacity,
+    Animated, Keyboard, KeyboardAvoidingView
 } from 'react-native';
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import SplashScreen from 'react-native-splash-screen'
 
 const { width, height } = Dimensions.get("window");
 
 import * as session from '../../../services/session';
 import * as api from '../../../services/api';
+//import * as DeviceEventEmitter from "react-native";
 
 const background = require("./login1_bg.png");
-const mark = require("./login1_mark.png");
+const logo = require("./login1_mark.png");
 const lockIcon = require("./login1_lock.png");
 const personIcon = require("./login1_person.png");
+
+export const IMAGE_HEIGHT = width / 2;
+export const IMAGE_HEIGHT_SMALL = width / 5;
 
 export default class LoginScreen extends Component {
 
@@ -45,6 +49,9 @@ export default class LoginScreen extends Component {
             password: '12345678',
         };
         this.state = this.initialState;
+
+        this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
+        console.log("keyboardWillShow");
     }
 
     onPressLogin() {
@@ -52,11 +59,10 @@ export default class LoginScreen extends Component {
             isLoading: true,
             error: '',
         });
-        dismissKeyboard();
+        //dismissKeyboard();
 
         session.authenticate(this.state.username, this.state.password)
             .then(() => {
-                console.log("jumpTO");
                 this.setState(this.initialState);
                 //const routeStack = this.props.navigator.getCurrentRoutes();
                 this.props.navigation.navigate('Main');
@@ -64,6 +70,7 @@ export default class LoginScreen extends Component {
             .catch((exception) => {
                 // Displays only the first error message
                 const error = api.exceptionExtractError(exception);
+                alert(error);
                 this.setState({
                     isLoading: false,
                     ...(error ? { error } : {}),
@@ -76,92 +83,125 @@ export default class LoginScreen extends Component {
     }
 
     componentDidMount() {
-        SplashScreen.hide()
+        SplashScreen.hide();
     }
 
-    onPressBack() {
+    componentWillMount() {
+        this.keyboardWillShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
+        this.keyboardWillHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+    }
+
+    componentWillUnmount() {
+        this.keyboardWillShowSub.remove();
+        this.keyboardWillHideSub.remove();
+    }
+
+    keyboardDidShow = (event) => {
+        Animated.timing(this.imageHeight, {
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT_SMALL,
+        }).start();
+
+        this.setState({
+            keyboardHeight: new Animated.Value(event.endCoordinates.height),
+        });
+    };
+
+    keyboardDidHide = (event) => {
+
+        Animated.parallel([
+            Animated.timing(this.state.keyboardHeight, {
+                toValue: 0,
+            }),
+            Animated.timing(this.imageHeight, {
+                toValue: IMAGE_HEIGHT,
+            }),
+        ]).start();
+    };
+
+    /*onPressBack() {
         const routeStack = this.props.navigator.getCurrentRoutes();
         this.props.navigator.jumpTo(routeStack[0]);
-    }
+    }*/
 
     render() {
         return (
-            <View style={styles.container}>
-                <Image source={background} style={styles.background} resizeMode="cover">
-                    <View style={styles.markWrap}>
-                        <Image source={mark} style={styles.mark} resizeMode="contain" />
-                    </View>
-                    <View style={styles.wrapper}>
-                        <View style={styles.inputWrap}>
-                            <View style={styles.iconWrap}>
-                                <Image source={personIcon} style={styles.icon} resizeMode="contain" />
+            <Image source={background} style={styles.background} resizeMode="cover">
+                    <KeyboardAvoidingView
+                        style={styles.container}
+                        behavior="padding"
+                    >
+                            <Animated.Image source={logo} style={[styles.logo, { height: this.imageHeight }]} />
+                            <View style={styles.inputWrap}>
+                                <View style={styles.iconWrap}>
+                                    <Image source={personIcon} style={styles.icon} resizeMode="contain" />
+                                </View>
+                                <TextInput
+                                    placeholder="Nazwa"
+                                    placeholderTextColor="#FFF"
+                                    style={styles.input}
+                                    onChangeText={username => this.setState({username})}
+                                />
                             </View>
-                            <TextInput
-                                placeholder="Nazwa"
-                                placeholderTextColor="#FFF"
-                                style={styles.input}
-                                onChangeText={username => this.setState({username})}
-                            />
-                        </View>
-                        <View style={styles.inputWrap}>
-                            <View style={styles.iconWrap}>
-                                <Image source={lockIcon} style={styles.icon} resizeMode="contain" />
+                            <View style={styles.inputWrap}>
+                                <View style={styles.iconWrap}>
+                                    <Image source={lockIcon} style={styles.icon} resizeMode="contain" />
+                                </View>
+                                <TextInput
+                                    placeholderTextColor="#FFF"
+                                    placeholder="Hasło"
+                                    style={styles.input}
+                                    onChangeText={password => this.setState({password})}
+                                    secureTextEntry
+                                />
                             </View>
-                            <TextInput
-                                placeholderTextColor="#FFF"
-                                placeholder="Hasło"
-                                style={styles.input}
-                                onChangeText={password => this.setState({password})}
-                                secureTextEntry
-                            />
-                        </View>
-                        <TouchableOpacity activeOpacity={.5}>
-                            <View style={styles.button}>
-                                <Button
-                                    style={styles.buttonText}
-                                    styleDisabled={{color: 'red'}}
-                                    title="Zaloguj się"
-                                    onPress={() => {
-                                        console.log('onPress'+this.state.username);
-                                        console.log('onPress'+this.state.password);
-                                        this.onPressLogin()
+                            <TouchableOpacity activeOpacity={.5}>
+                                <View style={styles.button}>
+                                    <Button
+                                        style={styles.buttonText}
+                                        styleDisabled={{color: 'red'}}
+                                        title="Zaloguj się"
+                                        onPress={() => {
+                                            console.log('onPress'+this.state.username);
+                                            console.log('onPress'+this.state.password);
+                                            this.onPressLogin()
+                                            }
                                         }
-                                    }
-                                    />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </Image>
-            </View>
+                                        />
+                                </View>
+                            </TouchableOpacity>
+                    </KeyboardAvoidingView>
+            </Image>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     markWrap: {
         flex: 1,
         paddingVertical: 30,
     },
-    mark: {
-        width: null,
-        height: null,
-        flex: 1,
+    logo: {
+        height: IMAGE_HEIGHT,
+        resizeMode: 'contain',
+        marginBottom: 30,
     },
     background: {
         width,
         height,
     },
-    wrapper: {
-        paddingVertical: 30,
-    },
     inputWrap: {
         flexDirection: "row",
-        marginVertical: 10,
+        marginHorizontal: 10,
+        marginVertical: 5,
         height: 40,
         borderBottomWidth: 1,
-        borderBottomColor: "#CCC"
+        borderBottomColor: "#CCC",
+        width: window.width - 30,
     },
     iconWrap: {
         paddingHorizontal: 7,
@@ -174,36 +214,15 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        paddingHorizontal: 10,
     },
     button: {
-        backgroundColor: "#FF3366",
-        paddingVertical: 20,
-        alignItems: "center",
-        justifyContent: "center",
+        backgroundColor: "#FF3366",/*
+        paddingVertical: 20,*/
+        width: window.width - 30,
         marginTop: 30,
     },
     buttonText: {
         color: "#FFF",
         fontSize: 18,
-    },
-    forgotPasswordText: {
-        color: "#D8D8D8",
-        backgroundColor: "transparent",
-        textAlign: "right",
-        paddingRight: 15,
-    },
-    signupWrap: {
-        backgroundColor: "transparent",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    accountText: {
-        color: "#D8D8D8"
-    },
-    signupLinkText: {
-        color: "#FFF",
-        marginLeft: 5,
     }
 });

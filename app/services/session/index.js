@@ -23,9 +23,9 @@ const clearSession = () => {
 };
 
 const onRequestSuccess = (response) => {
-    console.log("ODPOWIEDZ: "+response.token)
     const token = response.token;
     store.dispatch(actionCreators.update({ token }));
+    return response;
     //setSessionTimeout(tokens.access.expiresIn);
 };
 

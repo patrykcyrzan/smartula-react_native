@@ -88,9 +88,9 @@ import {initialState} from "./services/session/reducer";
 
 const _XHR = GLOBAL.originalXMLHttpRequest ?
     GLOBAL.originalXMLHttpRequest :
-    GLOBAL.XMLHttpRequest
+    GLOBAL.XMLHttpRequest;
 
-XMLHttpRequest = _XHR
+XMLHttpRequest = _XHR;
 
 const styles = StyleSheet.create({
     container: {

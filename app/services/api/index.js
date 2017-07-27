@@ -15,7 +15,7 @@ export const exceptionExtractError = (exception) => {
 };
 
 export const fetchApi = (endPoint, payload = {}, method = 'get', headers = {}) => {
-    const accessToken = sessionSelectors.get().tokens.access.value;
+    const accessToken = sessionSelectors.get().token;
     console.log('TUUUTAJ'+payload);
     return fetchival(`${apiConfig.url}${endPoint}`, {
         headers: _.pickBy({

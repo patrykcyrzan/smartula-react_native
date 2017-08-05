@@ -31,7 +31,8 @@ const MainNavigator = TabNavigator({
             rippleColor: 'white',
             tabs: {
                 MoviesAndTV: {
-                    barBackgroundColor: '#37474F'
+                    backgroundColor: '#FAFAFA',
+                    labelColor: '#434343',
                 },
                 Music: {
                     barBackgroundColor: '#00796B'

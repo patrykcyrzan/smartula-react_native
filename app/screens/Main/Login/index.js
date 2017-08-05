@@ -20,10 +20,11 @@ const { width, height } = Dimensions.get("window");
 
 import * as session from '../../../services/session';
 import * as api from '../../../services/api';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 //import * as DeviceEventEmitter from "react-native";
 
-const background = require("./login1_bg.png");
-const logo = require("./login1_mark.png");
+const background = require("./meadow.jpg");
+const logo = require("./logo.png");
 const lockIcon = require("./login1_lock.png");
 const personIcon = require("./login1_person.png");
 
@@ -45,8 +46,8 @@ export default class LoginScreen extends Component {
         this.initialState = {
             isLoading: false,
             error: null,
-            username: 'user1@facebook.com',
-            password: '12345678',
+            username: 'tymons',
+            password: '43210',
         };
         this.state = this.initialState;
 
@@ -70,7 +71,6 @@ export default class LoginScreen extends Component {
             .catch((exception) => {
                 // Displays only the first error message
                 const error = api.exceptionExtractError(exception);
-                alert(error);
                 this.setState({
                     isLoading: false,
                     ...(error ? { error } : {}),
@@ -134,21 +134,21 @@ export default class LoginScreen extends Component {
                             <Animated.Image source={logo} style={[styles.logo, { height: this.imageHeight }]} />
                             <View style={styles.inputWrap}>
                                 <View style={styles.iconWrap}>
-                                    <Image source={personIcon} style={styles.icon} resizeMode="contain" />
+                                    <Icon size={20} name="user" color="#616161"/>
                                 </View>
                                 <TextInput
-                                    placeholder="Nazwa"
-                                    placeholderTextColor="#FFF"
+                                    placeholder="Użytkownik"
+                                    placeholderTextColor="#616161"
                                     style={styles.input}
                                     onChangeText={username => this.setState({username})}
                                 />
                             </View>
                             <View style={styles.inputWrap}>
                                 <View style={styles.iconWrap}>
-                                    <Image source={lockIcon} style={styles.icon} resizeMode="contain" />
+                                    <Icon size={20} name="key" color="#616161"/>
                                 </View>
                                 <TextInput
-                                    placeholderTextColor="#FFF"
+                                    placeholderTextColor="#616161"
                                     placeholder="Hasło"
                                     style={styles.input}
                                     onChangeText={password => this.setState({password})}
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#CCC",
         width: window.width - 30,
+        backgroundColor:'rgba(255, 255, 255, 0.7)',
     },
     iconWrap: {
         paddingHorizontal: 7,

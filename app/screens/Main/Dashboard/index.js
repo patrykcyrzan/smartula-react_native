@@ -16,7 +16,7 @@ import ErrorPage from '../../../components/ErrorPage'
 export default class Dashboard extends Component {
     static navigationOptions = {
         tabBarLabel: "Dashboard",
-        tabBarIcon: () => <Icon size={24} name="dashboard" color="white"/>
+        tabBarIcon: () => <Icon size={24} name="dashboard" color="black"/>
     }
 
     constructor(props) {
@@ -32,7 +32,6 @@ export default class Dashboard extends Component {
     getAllLatestMeasurements() {
         latestMeasurements.getAllLatestMeasurements()
             .then((latestMeasurements) => {
-                alert(JSON.stringify(latestMeasurements, null, 4));
                 const dashboard = {
                     accesspointsTable: latestMeasurements,
                     expireTime: moment().add(1, 'd').unix()
@@ -122,13 +121,12 @@ export default class Dashboard extends Component {
                     barStyle="light-content"
                     backgroundColor={'#202930'} />
                 <DashboardContent />
+                <View style={styles.bordered}/>
             </View>
         )
     }
 
     _renderItem(item){
-
-        alert(JSON.stringify(item.latestMeasurementCollection, null, 4));
         return (
             <SingleAccessPoint
                 hives={item.latestMeasurementCollection}/>
@@ -153,6 +151,7 @@ export default class Dashboard extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#FAFAFA',
     },
     button: {
         marginTop: 20,
@@ -173,6 +172,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 16
+    },
+    bordered: {
+        flex: 0,
+        borderBottomWidth: 1,
+        borderColor: '#EBECED'
     },
     errMsgTxt: {
         fontSize: 10,

@@ -1,3 +1,6 @@
 {
+  "plugins": [
+    ["react-docgen", { "DOC_GEN_COLLECTION_NAME": "STORYBOOK_REACT_CLASSES"}]
+  ],
   "presets": ["react-native"]
 }

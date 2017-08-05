@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import Carousel from 'react-native-snap-carousel';
 import SliderEntry from '../../../components/SliderEntry'
+import HiveCard from '../../../components/HiveCard'
 import {sliderWidth, itemWidth} from '../../../styles/SliderEntry.style'
 
 const ENTRIES1 = [
@@ -132,6 +133,7 @@ export default class SingleAccessPoint extends Component {
                 activeSlideOffset={1}
                 scrollEndDragDebounceValue={150}
                 removeClippedSubviews={false}
+                hasParallaxImages={true}
                 //onSnapToItem={(index)=>this.onSnapToItem(index)}
                 sliderWidth={sliderWidth}
                 showsHorizontalScrollIndicator={false}
@@ -146,13 +148,22 @@ export default class SingleAccessPoint extends Component {
         )
     }
 
-    _renderItem({item, index}) {
+    /*_renderItem({item, index}) {
         return (
             <SliderEntry
                 data={item}
                 even={(index + 1) % 2 === 0}
             />
-        );
+            {/!*<HiveCard
+                data={item}/>*!/}
+        )
+    }*/
+
+    _renderItem({item, index}, parallaxProps) {
+        return (
+        <HiveCard
+            data={item}/>
+        )
     }
 }
 

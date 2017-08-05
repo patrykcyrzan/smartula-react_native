@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -50,4 +50,7 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('smartulaMobile', () => smartulaMobile);
+AppRegistry.registerComponent('smartulaMobile', () => smartulaMobile);*/
+
+import StorybookUI from './storybook';
+export default StorybookUI;

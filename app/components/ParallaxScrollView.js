@@ -6,13 +6,16 @@ import {
     Animated,
     ScrollView,
     StyleSheet,
-    Dimensions
+    Dimensions, TouchableHighlight
 } from 'react-native';
 
 import {Icon, List, ListItem} from 'react-native-elements';
 import CustomIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import {DrawerNavigator} from "react-navigation";
+import SlideMenu from "./SlideMenu";
 
 const ScrollViewPropTypes = ScrollView.propTypes;
+import PropTypes from 'prop-types'
 
 export const SCREEN_HEIGHT = Dimensions.get('window').height;
 export const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -21,9 +24,11 @@ export const SCREEN_SCALE = Dimensions.get('window').scale;
 export const DEFAULT_WINDOW_MULTIPLIER = 0.20;
 export const DEFAULT_NAVBAR_HEIGHT = 50;
 
+
+
 export default class ParallaxScrollView extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             scrollY: new Animated.Value(0)
@@ -164,6 +169,7 @@ export default class ParallaxScrollView extends Component {
             return null;
         }
 
+
         return (
             <Animated.View
                 style={{
@@ -181,7 +187,11 @@ export default class ParallaxScrollView extends Component {
                         alignItems: 'center'
                     }}
                 >
+                    <TouchableHighlight
+                        onPress={ () => {this.props.navigation.navigate("DrawerOpen")
+                        } }>
                     <CustomIcon size={30} name="pentagon-outline" color="#FFE066"/>
+                    </TouchableHighlight>
                 </View>
                 <View
                     style={{
@@ -256,7 +266,8 @@ ParallaxScrollView.propTypes = {
     userTitle: React.PropTypes.string,
     headerView: React.PropTypes.node,
     leftIcon: React.PropTypes.object,
-    rightIcon: React.PropTypes.object
+    rightIcon: React.PropTypes.object,
+    navigation: PropTypes.object.isRequired,
 };
 
 var styles = StyleSheet.create({

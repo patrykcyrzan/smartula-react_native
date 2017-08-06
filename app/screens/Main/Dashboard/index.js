@@ -13,6 +13,7 @@ import SingleAccessPoint from './SingleAccessPoint'
 
 import ErrorPage from '../../../components/ErrorPage'
 import ParallaxScrollView from "../../../components/ParallaxScrollView";
+import PropTypes from 'prop-types'
 
 export const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -113,6 +114,7 @@ export default class Dashboard extends Component {
                             leftIcon={{name: 'rocket', color: 'rgba(193, 193, 193, 1)', size: 30, type: 'font-awesome'}}
                             rightIcon={{name: 'user', color: 'rgba(193, 193, 193, 1)', size: 30, type: 'font-awesome'}}
                             refreshControl={this._refreshControl()}
+                            navigation={ this.props.screenProps.rootNavigation }
                         >
                             <FlatList
                                 data={accesspoints}
@@ -158,6 +160,10 @@ export default class Dashboard extends Component {
         this.setState({ refreshing: true })
         this.getAllLatestMeasurements()
     }
+}
+
+Dashboard.propTypes = {
+    screenProps: PropTypes.object.isRequired
 }
 
 const styles = StyleSheet.create({

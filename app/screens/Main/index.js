@@ -17,6 +17,7 @@ import Dashboard2 from './Dashboard2';
 import Dashboard3 from './Dashboard3';
 import {TabNavigator} from "react-navigation";
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import IconChartSettings from 'react-native-vector-icons/SimpleLineIcons'
 
 const MainNavigator = TabNavigator({
     MoviesAndTV: { screen: Dashboard },
@@ -28,20 +29,25 @@ const MainNavigator = TabNavigator({
     tabBarOptions: {
         bottomNavigationOptions: {
             labelColor: 'white',
-            rippleColor: 'white',
+            rippleColor: '#FFE066',
             tabs: {
                 MoviesAndTV: {
                     backgroundColor: '#FAFAFA',
-                    labelColor: '#434343',
+                    labelColor: '#CDD5DF',
+                    activeLabelColor: '#FFE066',
+                    activeIcon: <Icon size={24} color="#FFE066" name="dashboard" />
                 },
                 Music: {
-                    barBackgroundColor: '#00796B'
+                    barBackgroundColor: '#FAFAFA',
+                    labelColor: '#CDD5DF',
+                    activeLabelColor: '#FFE066',
+                    activeIcon: <IconChartSettings size={24} color="#FFE066" name="chart" />
                 },
                 Newsstand: {
-                    barBackgroundColor: '#EEEEEE',
-                    labelColor: '#434343', // like in the standalone version, this will override the already specified `labelColor` for this tab
-                    activeLabelColor: '#212121',
-                    activeIcon: <Icon size={24} color="#212121" name="newsstand" />
+                    barBackgroundColor: '#FAFAFA',
+                    labelColor: '#CDD5DF',
+                    activeLabelColor: '#FFE066',
+                    activeIcon: <IconChartSettings size={24} color="#FFE066" name="settings" />
                 }
             }
         }

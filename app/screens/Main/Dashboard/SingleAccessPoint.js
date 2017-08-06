@@ -8,7 +8,8 @@ import {
 import Carousel from 'react-native-snap-carousel';
 import SliderEntry from '../../../components/SliderEntry'
 import HiveCard from '../../../components/HiveCard'
-import {sliderWidth, itemWidth} from '../../../styles/SliderEntry.style'
+import {sliderWidth, itemWidth, itemHorizontalMargin} from '../../../styles/SliderEntry.style'
+import ScalableText from "react-native-text";
 
 const ENTRIES1 = [
     {
@@ -117,9 +118,11 @@ export default class SingleAccessPoint extends Component {
     }
 
     render() {
-        const {hives} = this.props
+        const {hives, accesspoint} = this.props
 
         return (
+            <View style={styles.accesspointContainer}>
+                <ScalableText style={styles.accesspointName}>{accesspoint}</ScalableText>
             <Carousel
                 data={hives}
                 renderItem={this._renderItem}
@@ -145,6 +148,7 @@ export default class SingleAccessPoint extends Component {
                     isInteraction: false,
                     useNativeDriver: true
                 }}/>
+            </View>
         )
     }
 
@@ -179,6 +183,17 @@ const styles = StyleSheet.create({
     hives: {
         flex: 1
     },
+    accesspointName: {
+      flex: 0,
+        fontFamily: 'VarelaRound-Regular',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginLeft: 30,
+        marginTop: 30,
+    },
+    accesspointContainer: {
+      flex: 1,
+    },
     centering: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -207,5 +222,6 @@ const styles = StyleSheet.create({
 });
 
 SingleAccessPoint.propTypes = {
-    hives: PropTypes.array.isRequired
+    hives: PropTypes.array.isRequired,
+    accesspoint: PropTypes.string.isRequired
 }

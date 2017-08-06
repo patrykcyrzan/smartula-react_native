@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet, Text, View,
     AsyncStorage, ActivityIndicator, ListView,
-    RefreshControl, StatusBar, TouchableOpacity, FlatList,
+    RefreshControl, StatusBar, TouchableOpacity, FlatList, Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import * as hives from '../../../data/hives/api';
@@ -12,11 +12,14 @@ import ScalableText from 'react-native-text'
 import SingleAccessPoint from './SingleAccessPoint'
 
 import ErrorPage from '../../../components/ErrorPage'
+import ParallaxScrollView from "../../../components/ParallaxScrollView";
+
+export const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class Dashboard extends Component {
     static navigationOptions = {
         tabBarLabel: "Dashboard",
-        tabBarIcon: () => <Icon size={24} name="dashboard" color="black"/>
+        tabBarIcon: () => <Icon size={24} name="dashboard" color="#CDD5DF"/>
     }
 
     constructor(props) {
@@ -101,15 +104,23 @@ export default class Dashboard extends Component {
                             <View style={ styles.errMsg }><ScalableText style={ styles.errMsgTxt }>Unable to load new data!</ScalableText></View> :
                             <View></View>
                         }
-                            {/*<SingleAccessPoint
-                                hives={accesspoints[0].latestMeasurementCollection}/>*/}
-                        <FlatList
-                            data={accesspoints}
-                            SeparatorComponent={() => <View  style={{width: 5}}/>}
-                            renderItem={({item}) => this._renderItem(item)}
-                            keyExtractor={item => item.accesspointId}
+                        <ParallaxScrollView
+                            backgroundSource={{uri:'http://i.imgur.com/6Iej2c3.png'}}
+                            navBarTitle='John Oliver'
+                            userName='John Oliver'
+                            userTitle='Comedian'
+                            userImage='http://i.imgur.com/RQ1iLOs.jpg'
+                            leftIcon={{name: 'rocket', color: 'rgba(193, 193, 193, 1)', size: 30, type: 'font-awesome'}}
+                            rightIcon={{name: 'user', color: 'rgba(193, 193, 193, 1)', size: 30, type: 'font-awesome'}}
                             refreshControl={this._refreshControl()}
-                        />
+                        >
+                            <FlatList
+                                data={accesspoints}
+                                SeparatorComponent={() => <View  style={{width: 30}}/>}
+                                renderItem={({item}) => this._renderItem(item)}
+                                keyExtractor={item => item.accesspointId}
+                            />
+                        </ParallaxScrollView>
                     </View>
                 )
             }
@@ -129,6 +140,7 @@ export default class Dashboard extends Component {
     _renderItem(item){
         return (
             <SingleAccessPoint
+                accesspoint={item.accesspointLocation}
                 hives={item.latestMeasurementCollection}/>
         )
     }

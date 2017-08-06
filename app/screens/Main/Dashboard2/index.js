@@ -3,7 +3,7 @@ import {
     StyleSheet, Text, View,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
 const styles = StyleSheet.create({
     container: {
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
 
 export default class Dashboard2 extends Component {
     static navigationOptions = {
-        tabBarIcon: () => <Icon size={24} name="ondemand-video" color="white" />
+        tabBarLabel: "Wykresy",
+        tabBarIcon: () => <Icon size={24} name="chart" color="#CDD5DF" />
     }
 
     render() {

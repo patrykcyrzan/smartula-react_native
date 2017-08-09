@@ -7,6 +7,7 @@ import {DrawerNavigator} from "react-navigation";
 import SlideMenu from "../../components/SlideMenu";
 
 import MainScreen from './MainScreen'
+import AboutScreen from '../About'
 
 const MainScreenDrawer = DrawerNavigator(
     {
@@ -14,6 +15,10 @@ const MainScreenDrawer = DrawerNavigator(
             path: '/index',
             screen: ({ navigation }) => <MainScreen screenProps={{ rootNavigation: navigation }} />
         },
+        AboutScreen: {
+            path: '/index',
+            screen: AboutScreen
+        }
     },
     {
         contentComponent: SlideMenu,

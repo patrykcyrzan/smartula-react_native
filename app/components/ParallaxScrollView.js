@@ -9,7 +9,6 @@ import {
     Dimensions, TouchableHighlight
 } from 'react-native';
 
-import {Icon, List, ListItem} from 'react-native-elements';
 import CustomIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {DrawerNavigator} from "react-navigation";
 import SlideMenu from "./SlideMenu";

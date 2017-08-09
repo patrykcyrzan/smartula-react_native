@@ -140,10 +140,12 @@ export default class Dashboard extends Component {
     }
 
     _renderItem(item){
+
         return (
             <SingleAccessPoint
                 accesspoint={item.accesspointLocation}
-                hives={item.latestMeasurementCollection}/>
+                hives={item.latestMeasurementCollection}
+                navigation={this.props.navigation}/>
         )
     }
 

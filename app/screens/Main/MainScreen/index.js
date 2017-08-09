@@ -7,13 +7,26 @@ import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import Dashboard from '../Dashboard';
 import Dashboard2 from '../Dashboard2';
 import Dashboard3 from '../Dashboard3';
-import {TabNavigator} from "react-navigation";
+import HiveDetail from '../Dashboard/HiveDetail'
+import HiveDetailChart from '../Dashboard/HiveDetailChart'
+import {StackNavigator, TabNavigator} from "react-navigation";
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import IconChartSettings from 'react-native-vector-icons/SimpleLineIcons'
 import PropTypes from 'prop-types'
 
+
+const DashboardStackNavigator = StackNavigator({
+    Dashboard: {
+        screen: Dashboard,
+    },
+    HiveDetail: {
+        screen: HiveDetail,
+    },
+},{ headerMode: 'none' })
+
+
 const MainNavigator = TabNavigator(    {
-    MoviesAndTV: { screen: Dashboard},
+    MoviesAndTV: { screen: DashboardStackNavigator},
     Music: { screen: Dashboard2 },
     Newsstand: { screen: Dashboard3 }
 }, {

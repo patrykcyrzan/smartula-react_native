@@ -33,9 +33,6 @@ class SlideMenu extends Component {
 
         return (
             <View style={ styles.content }>
-                <Image
-                    style={ styles.menuImg }
-                    source={ require('../../assets/images/menu-img.jpg') }/>
                 {this.props.navigation.state.routes.map((route, index) => (
                     <TouchableHighlight
                         onPress={ () => this.props.navigation.navigate(route.routeName) }
@@ -59,7 +56,7 @@ class SlideMenu extends Component {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        backgroundColor: '#202930',
+        backgroundColor: '#FAFAFA',
         paddingTop: Platform.OS === 'ios' ? 20 : 0
     },
     menuImg: {
@@ -82,7 +79,7 @@ const styles = StyleSheet.create({
     },
     btnTxt: {
         paddingLeft: 20,
-        color: '#fff',
+        color: 'black',
         fontSize: 16,
         lineHeight: 17,
         fontFamily: 'Raleway-Regular'

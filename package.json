@@ -9,13 +9,16 @@
   "dependencies": {
     "fetchival": "^0.3.2",
     "global": "^4.3.2",
+    "immutability-helper": "^2.3.0",
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.13",
     "native-base": "^2.3.1",
     "prop-types": "latest",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.4",
+    "react-native-charts-wrapper": "^0.2.10",
     "react-native-cli": "^2.0.1",
+    "react-native-collapsible": "^0.9.0",
     "react-native-material-bottom-navigation": "^0.5.1",
     "react-native-snap-carousel": "git://github.com/archriss/react-native-snap-carousel.git#flatlist",
     "react-native-splash-screen": "^2.1.0",
@@ -49,6 +52,8 @@
     "storybook-hosted": "storybook start -p 7007 -i -c .storybook/server -e PRODUCTION"
   },
   "rnpm": {
-    "assets": ["./assets/fonts"]
+    "assets": [
+      "./assets/fonts"
+    ]
   }
 }

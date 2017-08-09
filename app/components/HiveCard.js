@@ -9,7 +9,7 @@ import IconWater from 'react-native-vector-icons/Entypo';
 import {
     View,
     StyleSheet,
-    Platform, Dimensions, Image, TouchableOpacity
+    Platform, Dimensions, Image, TouchableOpacity, TouchableHighlight
 } from 'react-native'
 
 import ScalableText from 'react-native-text'
@@ -30,7 +30,7 @@ const elevation = 3;
 const elevationPadding = elevation * 0.5;
 
 export const sliderWidth = viewportWidth;
-export const itemWidth = slideWidth ;
+export const itemWidth = slideWidth;
 
 export default class HiveCard extends Component {
 
@@ -42,7 +42,8 @@ export default class HiveCard extends Component {
     }
 
     static propTypes = {
-        data: PropTypes.object.isRequired
+        data: PropTypes.object.isRequired,
+        navigation: PropTypes.object.isRequired,
     };
 
     get image() {
@@ -59,6 +60,8 @@ export default class HiveCard extends Component {
     render() {
         const {data: {hive}} = this.props;
 
+        //alert(JSON.stringify(this.props.navigation, null ,4));
+
         return (
             <Card
                 style={styles.container}>
@@ -66,28 +69,33 @@ export default class HiveCard extends Component {
                     <Text>Instrumental Songs</Text>
                     <Text note>Guitar</Text>
                 </CardItem>*/}
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <Image style={[styles.imageContainer, {flex: 0.7}]}
-                           source={{uri: 'http://www.protecttheplanet.co.uk/user/products/large/beehive-wooden-composter.jpg'}}/>
-                    <View style={[styles.contentContainer, {flex: 0.3}]}>
-                        <Text style={[styles.header, styles.bordered]}>{hive.name.toUpperCase()}</Text>
-                        <View style = {styles.statisticsContainer}>
-                            <View style={styles.statisticsItem}>
-                                <IconThermometer size={20} name="thermometer" color="#e74c3c"/>
-                                <Text style={styles.txtItem}>36</Text>
-                            </View>
-                            <View style={styles.statisticsItem}>
-                                <IconWeight size={20} name="weight" color="black"/>
-                                <Text style={styles.txtItem}>36</Text>
-                            </View>
-                            <View style={styles.statisticsItem}>
-                            <IconWater size={20} name="water" color="#3498db"/>
-                                <Text style={styles.txtItem}>36</Text>
+                <TouchableHighlight
+                    style={{flex: 1}}
+                    onPress={() => {
+                        this.props.navigation.navigate('HiveDetail')
+                    }}>
+                    <View style={{flex: 1, flexDirection: 'column'}}>
+                        <Image style={[styles.imageContainer, {flex: 0.7}]}
+                               source={{uri: 'http://www.protecttheplanet.co.uk/user/products/large/beehive-wooden-composter.jpg'}}/>
+                        <View style={[styles.contentContainer, {flex: 0.3}]}>
+                            <Text style={[styles.header, styles.bordered]}>{hive.name.toUpperCase()}</Text>
+                            <View style={styles.statisticsContainer}>
+                                <View style={styles.statisticsItem}>
+                                    <IconThermometer size={20} name="thermometer" color="#e74c3c"/>
+                                    <Text style={styles.txtItem}>36</Text>
+                                </View>
+                                <View style={styles.statisticsItem}>
+                                    <IconWeight size={20} name="weight" color="black"/>
+                                    <Text style={styles.txtItem}>36</Text>
+                                </View>
+                                <View style={styles.statisticsItem}>
+                                    <IconWater size={20} name="water" color="#3498db"/>
+                                    <Text style={styles.txtItem}>36</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
-                {/*<TouchableOpacity
+                    {/*<TouchableOpacity
                 activeOpacity={1}
                 style={[styles.container]}>
                 <View style={[styles.container]}>
@@ -102,6 +110,7 @@ export default class HiveCard extends Component {
                     </ScalableText>
                 </View>
             </TouchableOpacity>*/}
+                </TouchableHighlight>
             </Card>
         )
     }
@@ -184,7 +193,7 @@ const styles = StyleSheet.create({
     statisticsContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent:'space-around',
+        justifyContent: 'space-around',
         alignItems: 'center'
     },
     statisticsItem: {
@@ -220,8 +229,8 @@ const styles = StyleSheet.create({
         fontFamily: 'VarelaRound-Regular',
     },
     txtItem: {
-        marginLeft:5,
-        fontFamily:'VarelaRound-Regular',
+        marginLeft: 5,
+        fontFamily: 'VarelaRound-Regular',
         fontSize: 15,
         fontWeight: '400'
     },

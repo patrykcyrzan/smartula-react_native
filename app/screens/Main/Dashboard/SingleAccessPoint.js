@@ -115,6 +115,8 @@ const ENTRIES2 = [
 export default class SingleAccessPoint extends Component {
     constructor(props) {
         super(props)
+
+        this._renderItem = this._renderItem.bind(this)
     }
 
     render() {
@@ -152,21 +154,12 @@ export default class SingleAccessPoint extends Component {
         )
     }
 
-    /*_renderItem({item, index}) {
-        return (
-            <SliderEntry
-                data={item}
-                even={(index + 1) % 2 === 0}
-            />
-            {/!*<HiveCard
-                data={item}/>*!/}
-        )
-    }*/
-
     _renderItem({item, index}, parallaxProps) {
+
         return (
         <HiveCard
-            data={item}/>
+            data={item}
+            navigation={this.props.navigation}/>
         )
     }
 }
@@ -223,5 +216,6 @@ const styles = StyleSheet.create({
 
 SingleAccessPoint.propTypes = {
     hives: PropTypes.array.isRequired,
-    accesspoint: PropTypes.string.isRequired
+    accesspoint: PropTypes.string.isRequired,
+    navigation: PropTypes.object.isRequired,
 }

@@ -11,12 +11,13 @@ export const exceptionExtractError = (exception) => {
     if (errorKeys.length > 0) {
         error = exception.Errors[errorKeys[0]][0].message;
     }
+    console.log(error);
     return error;
 };
 
-export const fetchApi = (endPoint, payload = {}, method = 'get', headers = {}) => {
+export const fetchApi = (endPoint, payload = {}, method = 'get', headers = {
+    'Content-Type': 'application/json'}) => {
     const accessToken = sessionSelectors.get().token;
-    console.log('TUUUTAJ'+payload);
     return fetchival(`${apiConfig.url}${endPoint}`, {
         headers: _.pickBy({
             ...(accessToken ? {

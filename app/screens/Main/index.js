@@ -8,6 +8,7 @@ import SlideMenu from "../../components/SlideMenu";
 
 import MainScreen from './MainScreen'
 import AboutScreen from '../About'
+import NavBar from "./Dashboard/NavBar";
 
 const MainScreenDrawer = DrawerNavigator(
     {
@@ -17,7 +18,7 @@ const MainScreenDrawer = DrawerNavigator(
         },
         AboutScreen: {
             path: '/index',
-            screen: AboutScreen
+            screen: AboutScreen,
         }
     },
     {

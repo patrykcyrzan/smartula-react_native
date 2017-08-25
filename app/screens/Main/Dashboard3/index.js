@@ -22,7 +22,16 @@ export default class Dashboard3 extends Component {
         tabBarIcon: () => <Icon size={24} name="settings" color="#CDD5DF" />
     }
 
+    componentWillReceiveProps(newProps) {
+        if (newProps.screenProps.navigation.route_index === 2) {
+            //console.log("dash3");
+            this.props.screenProps.actions.updateTabNav(this.props.navigation);
+        }
+    }
+
     render() {
+        //console.log("Dashboard3")
+        //console.log(this.props)
         return <View><Text>Movies & TV3</Text></View>
     }
 }

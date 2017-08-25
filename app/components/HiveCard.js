@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 
 import ScalableText from 'react-native-text'
+import moment from "moment";
 
 const entryBorderRadius = 8;
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
@@ -31,6 +32,23 @@ const elevationPadding = elevation * 0.5;
 
 export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth;
+
+function formatDate(date) {
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+
+    return day + '.' + (monthIndex+1) + '.' + year + ' ' + hours + ':' + minutes;
+}
 
 export default class HiveCard extends Component {
 
@@ -58,9 +76,9 @@ export default class HiveCard extends Component {
     }
 
     render() {
-        const {data: {hive}} = this.props;
-
-        //alert(JSON.stringify(this.props.navigation, null ,4));
+        const {data, data: {hive}} = this.props;
+        var date = new Date(data.lastMeasureTimestamp)
+        var formatDate = moment(date).format('MM.DD.YYYY, HH:mm')
 
         return (
             <Card
@@ -70,27 +88,31 @@ export default class HiveCard extends Component {
                     <Text note>Guitar</Text>
                 </CardItem>*/}
                 <TouchableHighlight
+                    underlayColor='transparent'
                     style={{flex: 1}}
                     onPress={() => {
-                        this.props.navigation.navigate('HiveDetail')
+                        this.props.navigation.navigate('HiveDetail', { hive: data })
                     }}>
                     <View style={{flex: 1, flexDirection: 'column'}}>
                         <Image style={[styles.imageContainer, {flex: 0.7}]}
                                source={{uri: 'http://www.protecttheplanet.co.uk/user/products/large/beehive-wooden-composter.jpg'}}/>
+                        <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFE066", paddingVertical: 2}}>
+                            <Text style={{fontFamily: 'Raleway-Regular'}}>{formatDate}</Text>
+                        </View>
                         <View style={[styles.contentContainer, {flex: 0.3}]}>
                             <Text style={[styles.header, styles.bordered]}>{hive.name.toUpperCase()}</Text>
                             <View style={styles.statisticsContainer}>
                                 <View style={styles.statisticsItem}>
                                     <IconThermometer size={20} name="thermometer" color="#e74c3c"/>
-                                    <Text style={styles.txtItem}>36</Text>
+                                    <Text style={styles.txtItem}>{data.temperatureIn}</Text>
                                 </View>
                                 <View style={styles.statisticsItem}>
                                     <IconWeight size={20} name="weight" color="black"/>
-                                    <Text style={styles.txtItem}>36</Text>
+                                    <Text style={styles.txtItem}>{data.weight}</Text>
                                 </View>
                                 <View style={styles.statisticsItem}>
                                     <IconWater size={20} name="water" color="#3498db"/>
-                                    <Text style={styles.txtItem}>36</Text>
+                                    <Text style={styles.txtItem}>{data.humidityIn}</Text>
                                 </View>
                             </View>
                         </View>
@@ -226,11 +248,11 @@ const styles = StyleSheet.create({
         color: '#696969',
         fontWeight: '200',
         fontSize: 25,
-        fontFamily: 'VarelaRound-Regular',
+        fontFamily: 'Raleway-Regular',
     },
     txtItem: {
         marginLeft: 5,
-        fontFamily: 'VarelaRound-Regular',
+        fontFamily: 'Raleway-SemiBold',
         fontSize: 15,
         fontWeight: '400'
     },

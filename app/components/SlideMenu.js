@@ -23,6 +23,7 @@ class SlideMenu extends Component {
     }
 
     render() {
+        const { state } = this.props.navigation;
         function icon(index) {
             if (index == 0) {
                 return <Image source={ require('../../assets/images/icon-standings.png') } style={ styles.btnIcon } />
@@ -31,6 +32,29 @@ class SlideMenu extends Component {
             }
         }
 
+        function title(index) {
+            if (index == 0) {
+                return(
+                <View style={ styles.btnBox }>
+                    { icon(index) }
+                    <ScalableText style={[ styles.btnTxt, state.index === index ? styles.btnTxtActive : {} ]}>
+                        EKRAN GŁÓWNY
+                    </ScalableText>
+                </View>
+                )
+            } else if (index == 1) {
+                return(
+                <View style={ styles.btnBox }>
+                    { icon(index) }
+                    <ScalableText style={[ styles.btnTxt, state.index === index ? styles.btnTxtActive : {} ]}>
+                        O NAS
+                    </ScalableText>
+                </View>
+                )
+            }
+        }
+
+        //alert(JSON.stringify(this.props.navigation, null, 4));
         return (
             <View style={ styles.content }>
                 {this.props.navigation.state.routes.map((route, index) => (
@@ -39,13 +63,9 @@ class SlideMenu extends Component {
                         onHideUnderlay={ () => { this.setState({ pressed: '' }) } }
                         onShowUnderlay={ () => { this.setState({ pressed: route.routeName }) } }
                         style={[ styles.btn, this.state.pressed === route.routeName ? styles.tabPress : {} ]}
+                        underlayColor="transparent"
                         key={ route.routeName }>
-                        <View style={ styles.btnBox }>
-                            { icon(index) }
-                            <ScalableText style={[ styles.btnTxt, this.props.navigation.state.index === index ? styles.btnTxtActive : {} ]}>
-                                { route.routeName.toUpperCase() }
-                            </ScalableText>
-                        </View>
+                        {title(index)}
                     </TouchableHighlight>
                 ))}
             </View>
@@ -67,8 +87,6 @@ const styles = StyleSheet.create({
     btn: {
         paddingHorizontal: 20,
         paddingVertical: 20,
-        borderBottomWidth: 1,
-        borderColor: '#2a3540'
     },
     btnBox: {
         flexDirection: 'row'
@@ -79,13 +97,13 @@ const styles = StyleSheet.create({
     },
     btnTxt: {
         paddingLeft: 20,
-        color: 'black',
+        color: '#CDD5DF',
         fontSize: 16,
         lineHeight: 17,
-        fontFamily: 'Raleway-Regular'
+        fontFamily: 'Raleway-Medium'
     },
     btnTxtActive: {
-        color: '#f94057'
+        color: '#FFE066'
     }
 })
 

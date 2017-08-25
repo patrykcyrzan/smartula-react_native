@@ -34,6 +34,7 @@ export default class HiveDetailChart extends Component {
                             config: {
                                 lineWidth: 3,
                                 drawCircles: false,
+                                drawHighlightIndicators: false,
                                 highlightColor: processColor('red'),
                                 color: processColor('red'),
                                 drawFilled: false,
@@ -77,7 +78,7 @@ export default class HiveDetailChart extends Component {
                         style={styles.chart}
                         data={this.state.data}
                         legend={this.state.legend}
-                        marker={this.state.marker}
+                        marker={{enabled: false}}
                         xAxis={this.state.xAxis}
                         yAxis={this.state.yAxis}
                         animation={this.state.animation}

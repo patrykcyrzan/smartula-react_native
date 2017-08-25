@@ -11,11 +11,15 @@ import HiveDetailChart from './HiveDetailChart'
 
 const SECTIONS = [
     {
-        title: 'Firstasdasdasdasdasdasdas',
+        title: 'Temperatura',
         content: HiveDetailChart
     },
     {
-        title: 'Second',
+        title: 'Wilgotność',
+        content: HiveDetailChart
+    },
+    {
+        title: 'Waga',
         content: HiveDetailChart
     }
 ];
@@ -46,6 +50,7 @@ export default class HiveDetailContent extends Component {
             removeClippedSubviews={false}
             renderHeader={this._renderHeader}
             renderContent={this._renderContent}
+            underlayColor='transparent'
         />
         );
     }
@@ -59,6 +64,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
+        marginTop: 20
     },
     title: {
         textAlign: 'center',
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
     headerText: {
         textAlign: 'center',
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: 'VarelaRound-Regular',
     },
     content: {
         flex: 1,

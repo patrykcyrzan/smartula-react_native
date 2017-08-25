@@ -5,6 +5,7 @@ import {
     View,
     StyleSheet
 } from 'react-native'
+import { Button, Text } from 'native-base'
 import Carousel from 'react-native-snap-carousel';
 import SliderEntry from '../../../components/SliderEntry'
 import HiveCard from '../../../components/HiveCard'
@@ -124,7 +125,15 @@ export default class SingleAccessPoint extends Component {
 
         return (
             <View style={styles.accesspointContainer}>
-                <ScalableText style={styles.accesspointName}>{accesspoint}</ScalableText>
+                <View style={{flex: 0, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <ScalableText style={[styles.accesspointName]}>{accesspoint}</ScalableText>
+                <Button style={styles.allHivesButton} transparent={true} onPress={() => {
+                    //alert(JSON.stringify(this.props.navigation, null, 4));
+                    this.props.navigation.navigate('AllHives', {hives: hives, accesspoint: accesspoint})
+                }}>
+                    <Text style={styles.allHivesText}>Wszystkie</Text>
+                </Button>
+                </View>
             <Carousel
                 data={hives}
                 renderItem={this._renderItem}
@@ -147,6 +156,7 @@ export default class SingleAccessPoint extends Component {
                 animationOptions={{
                     friction: 4,
                     tension: 40,
+                    duration: 300,
                     isInteraction: false,
                     useNativeDriver: true
                 }}/>
@@ -178,11 +188,35 @@ const styles = StyleSheet.create({
     },
     accesspointName: {
       flex: 0,
-        fontFamily: 'VarelaRound-Regular',
-        fontWeight: 'bold',
+        fontFamily: 'Raleway-SemiBold',
+        color: '#d35400',
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 20,
         marginLeft: 30,
+        marginRight: 30,
         marginTop: 30,
+    },
+    allHivesButton: {
+        elevation: 0,
+        borderColor: '#d35400',
+        borderWidth: 1,
+        paddingLeft: 3,
+        paddingRight: 3,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 30,
+        marginTop: 30,
+        height: null,
+    },
+    allHivesText: {
+        flex: 0,
+        fontFamily: 'Raleway-Medium',
+        color: '#d35400',
+        fontSize: 10,
+        alignSelf: 'center',
     },
     accesspointContainer: {
       flex: 1,

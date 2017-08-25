@@ -1,3 +1,3 @@
 export default {
-    url: 'http://192.168.137.1:8080',
+    url: 'http://smartula.hopto.org:8080/eul',
 };

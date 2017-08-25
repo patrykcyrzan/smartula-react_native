@@ -6,6 +6,10 @@ import {
 
 export default class AboutScreen extends Component {
 
+    static navigationOptions = {
+        title: "About screen 2sdf"
+    }
+
     constructor(props) {
         super(props)
     }

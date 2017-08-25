@@ -19,7 +19,7 @@ export const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class Dashboard extends Component {
     static navigationOptions = {
-        tabBarLabel: "Dashboard",
+        tabBarLabel: "Dashboardasd",
         tabBarIcon: () => <Icon size={24} name="dashboard" color="#CDD5DF"/>
     }
 
@@ -31,6 +31,12 @@ export default class Dashboard extends Component {
             accesspoints: [],
             refreshing: false
         }
+
+
+        this.props.screenProps.actions.updateTabNav(this.props.navigation);
+        console.log("PROPS")
+        console.log(this.props)
+        console.log("--------")
     }
 
     getAllLatestMeasurements() {
@@ -85,9 +91,19 @@ export default class Dashboard extends Component {
             })
     }
 
+    componentWillReceiveProps(newProps) {
+        //console.log("Dash1 - componentWillReceiveProps")
+        if (newProps.screenProps.navigation.route_index === 0) {
+            this.props.screenProps.actions.updateTabNav(this.props.navigation);
+        }
+    }
+
     render() {
         const { isLoading, accesspoints, error } = this.state;
 
+        //this.props.screenProps.actions.updateScrollPos('nowy obiekt');
+        //alert(JSON.stringify(this.props.screenProps, null, 4));
+        //console.log(this.props)
         const DashboardContent = () => {
             if (isLoading) {
                 return (
@@ -115,6 +131,7 @@ export default class Dashboard extends Component {
                             rightIcon={{name: 'user', color: 'rgba(193, 193, 193, 1)', size: 30, type: 'font-awesome'}}
                             refreshControl={this._refreshControl()}
                             navigation={ this.props.screenProps.rootNavigation }
+                            action={this.props.screenProps.actions}
                         >
                             <FlatList
                                 data={accesspoints}
@@ -130,9 +147,6 @@ export default class Dashboard extends Component {
 
         return (
             <View style={ styles.container }>
-                <StatusBar
-                    barStyle="light-content"
-                    backgroundColor={'#202930'} />
                 <DashboardContent />
                 <View style={styles.bordered}/>
             </View>

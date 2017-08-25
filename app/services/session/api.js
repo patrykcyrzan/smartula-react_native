@@ -7,7 +7,7 @@ const endPoints = {
 };
 
 export const authenticate = (username, password) => fetchApi(endPoints.authenticate, {username, password }, 'post', {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
 });
 
 //'Content-Type': 'application/json',

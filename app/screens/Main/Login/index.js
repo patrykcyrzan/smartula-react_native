@@ -5,22 +5,22 @@ import React, { Component, PropTypes } from 'react';
 import {
     AppRegistry,
     StyleSheet,
-    Text,
     View,
     Image,
     Dimensions,
     TextInput,
-    Button,
     TouchableOpacity,
     Animated, Keyboard, KeyboardAvoidingView
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen'
+import { Button, Text } from 'native-base'
 
 const { width, height } = Dimensions.get("window");
 
 import * as session from '../../../services/session';
 import * as api from '../../../services/api';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Spinner from "../../../components/Spinner";
 //import * as DeviceEventEmitter from "react-native";
 
 const background = require("./meadow.jpg");
@@ -127,6 +127,11 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <Image source={background} style={styles.background} resizeMode="cover">
+                <View style={{flex: 0}}>
+                    {this.state.isLoading ? (<Spinner
+                        visible={true}
+                        />):(<View/>)}
+                </View>
                     <KeyboardAvoidingView
                         style={styles.container}
                         behavior="padding"
@@ -158,16 +163,17 @@ export default class LoginScreen extends Component {
                             <TouchableOpacity activeOpacity={.5}>
                                 <View style={styles.button}>
                                     <Button
-                                        style={styles.buttonText}
-                                        styleDisabled={{color: 'red'}}
-                                        title="Zaloguj się"
+                                        style={styles.loginButton}
+                                        rounded={true}
                                         onPress={() => {
                                             console.log('onPress'+this.state.username);
                                             console.log('onPress'+this.state.password);
                                             this.onPressLogin()
                                             }
                                         }
-                                        />
+                                        >
+                                        <Text style={styles.loginText}>Zaloguj</Text>
+                                    </Button>
                                 </View>
                             </TouchableOpacity>
                     </KeyboardAvoidingView>
@@ -215,15 +221,16 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
+        fontFamily: 'Raleway-SemiBold',
     },
-    button: {
-        backgroundColor: "#FF3366",/*
+    loginButton: {
+        backgroundColor: "#FFE066",/*
         paddingVertical: 20,*/
-        width: window.width - 30,
         marginTop: 30,
     },
-    buttonText: {
-        color: "#FFF",
-        fontSize: 18,
+    loginText: {
+        color: "#616161",
+        fontSize: 15,
+        fontFamily: 'Raleway-SemiBold',
     }
 });

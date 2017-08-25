@@ -9,5 +9,7 @@ import App from './app/app';
 
 GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest
 
+console.disableYellowBox = true;
+
 
 AppRegistry.registerComponent('smartulaMobile', () => App);

@@ -121,6 +121,7 @@ export default class ParallaxScrollView extends Component {
                                     }}>
                                     <Text style={[styles.text, {
                                         fontSize: 25,
+                                        fontFamily: 'Raleway-SemiBold',
                                         color: '#FFE066'
                                     }]}>SMARTULA</Text>
                                 </Animated.View>
@@ -139,6 +140,7 @@ export default class ParallaxScrollView extends Component {
         if (!windowHeight || !backgroundSource) {
             return null;
         }
+        //console.log(scrollY);
 
         return (
             <Animated.View
@@ -152,6 +154,7 @@ export default class ParallaxScrollView extends Component {
             >
                 <Text style={[styles.text, {
                     fontSize: 25,
+                    fontFamily: 'Raleway-SemiBold',
                     color: '#CDD5DF'
                 }]}>SMARTULA</Text>
             </Animated.View>
@@ -187,6 +190,7 @@ export default class ParallaxScrollView extends Component {
                     }}
                 >
                     <TouchableHighlight
+                        underlayColor='transparent'
                         onPress={ () => {this.props.navigation.navigate("DrawerOpen")
                         } }>
                     <CustomIcon size={30} name="pentagon-outline" color="#FFE066"/>
@@ -218,22 +222,29 @@ export default class ParallaxScrollView extends Component {
         );
     }
 
+
+
+    onScroll(event){
+        this.props.action.updateScrollPos(this.state.scrollY);
+
+        Animated.event( [
+            {nativeEvent: {contentOffset: {y: this.state.scrollY}}}
+        ])(event)
+    }
+
     render() {
         var {style, ...props} = this.props;
 
         return (
             <View style={[styles.container, style]}>
                 {this.renderBackground()}
-                {this.rendernavBar()}
                 <ScrollView
                     ref={component => {
                         this._scrollView = component;
                     }}
                     {...props}
                     style={styles.scrollView}
-                    onScroll={Animated.event([
-                        {nativeEvent: {contentOffset: {y: this.state.scrollY}}}
-                    ])}
+                    onScroll={this.onScroll.bind(this)}
                     scrollEventThrottle={16}
                 >
                     {this.renderHeaderView()}
@@ -247,10 +258,7 @@ export default class ParallaxScrollView extends Component {
 }
 
 ParallaxScrollView.defaultProps = {
-    //backgroundSource: {uri: 'http://i.imgur.com/6Iej2c3.png'},
     windowHeight: SCREEN_HEIGHT * DEFAULT_WINDOW_MULTIPLIER,
-    leftIconOnPress: () => console.log('Left icon pressed'),
-    rightIconOnPress: () => console.log('Right icon pressed')
 };
 
 ParallaxScrollView.propTypes = {
@@ -291,8 +299,7 @@ var styles = StyleSheet.create({
     },
     text: {
         flex: 0,
-        fontFamily: 'VarelaRound-Regular',
-        fontWeight: '100',
+        fontFamily: 'Raleway-Medium',
         fontSize: 20,
     },
     headerView: {

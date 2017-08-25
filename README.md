@@ -1,3 +1,5 @@
+![Logo](/.github/bg.png?raw=true "Logo")
+
 # Smartula - mobile app
 
 React Native hives monitoring application.

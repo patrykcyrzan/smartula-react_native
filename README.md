@@ -1,4 +1,4 @@
-![Logo](/.github/bg.png?raw=true "Logo")
+![Logo](/.github/bg.jpg?raw=true "Logo")
 
 # Smartula - mobile app
 

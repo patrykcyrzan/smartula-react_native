@@ -15,8 +15,8 @@ npm install or yarn
 
 | Feeds | Drawer |
 |:-:|:-:|
-| ![First](/.github/assets/ps1.png?raw=true) | ![Sec](/.github/assets/ps2.png?raw=true) |
+| ![First](/.github/ps1.png?raw=true) | ![Sec](/.github/ps2.png?raw=true) |
 
 | Repo | Profile |
 |:-:|:-:|
-| ![Third](/.github/assets/ps3.png?raw=true) | ![Fourth](/.github/assets/ps4.png?raw=true) |
+| ![Third](/.github/ps3.png?raw=true) | ![Fourth](/.github/ps4.png?raw=true) |

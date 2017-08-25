@@ -13,10 +13,14 @@ npm install or yarn
 
 ## Screenshots
 
-| Feeds | Drawer |
+| Login| Login with keyboard |
 |:-:|:-:|
 | ![First](/.github/ps1.png?raw=true) | ![Sec](/.github/ps2.png?raw=true) |
 
-| Repo | Profile |
+| Dashboard | Dashboard |
 |:-:|:-:|
 | ![Third](/.github/ps3.png?raw=true) | ![Fourth](/.github/ps4.png?raw=true) |
+
+| HiveDetail | HiveDetail with chart |
+|:-:|:-:|
+| ![Fifth](/.github/ps5.png?raw=true) | ![Sixth](/.github/ps6.png?raw=true) |
